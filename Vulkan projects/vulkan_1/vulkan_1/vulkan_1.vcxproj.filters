@@ -24,6 +24,9 @@
     <ClCompile Include="v1_app.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="lve_pipeline.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="v1.h">
@@ -32,5 +35,15 @@
     <ClInclude Include="v1_app.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="lve_pipeline.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\simple_shader.vert" />
+    <None Include="shaders\simple_shader.frag" />
+    <None Include="compile.bat">
+      <Filter>Archivos de origen</Filter>
+    </None>
   </ItemGroup>
 </Project>
