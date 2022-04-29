@@ -18,7 +18,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="v1.cpp">
+    <ClCompile Include="v1_window.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="v1_app.cpp">
@@ -27,15 +27,27 @@
     <ClCompile Include="lve_pipeline.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="lve_device.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="lve_swap_chain.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="v1.h">
+    <ClInclude Include="v1_window.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="v1_app.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="lve_pipeline.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="lve_device.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="lve_swap_chain.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

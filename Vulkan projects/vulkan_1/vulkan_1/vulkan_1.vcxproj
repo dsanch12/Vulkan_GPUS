@@ -157,12 +157,16 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="lve_pipeline.cpp" />
-    <ClCompile Include="v1.cpp" />
+    <ClCompile Include="lve_device.cpp" />
+    <ClCompile Include="lve_swap_chain.cpp" />
+    <ClCompile Include="v1_window.cpp" />
     <ClCompile Include="v1_app.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lve_pipeline.h" />
-    <ClInclude Include="v1.h" />
+    <ClInclude Include="lve_device.h" />
+    <ClInclude Include="lve_swap_chain.h" />
+    <ClInclude Include="v1_window.h" />
     <ClInclude Include="v1_app.h" />
   </ItemGroup>
   <ItemGroup>
