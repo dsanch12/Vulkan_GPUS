@@ -19,7 +19,6 @@ namespace lve {
         LveRenderer& operator=(const LveRenderer&) = delete;
 
         VkRenderPass getSwapChainRenderPass() const { return lveSwapChain->getRenderPass(); }
-        float getAspectRatio() const { return lveSwapChain->extentAspectRatio(); }
         bool isFrameInProgress() const { return isFrameStarted; }
 
         VkCommandBuffer getCurrentCommandBuffer() const {
@@ -48,7 +47,7 @@ namespace lve {
         std::vector<VkCommandBuffer> commandBuffers;
 
         uint32_t currentImageIndex;
-        int currentFrameIndex{ 0 };
-        bool isFrameStarted{ false };
+        int currentFrameIndex;
+        bool isFrameStarted;
     };
 }

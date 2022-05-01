@@ -1,4 +1,4 @@
-/*#include "simple_render_system.h"
+#include "simple_render_system.h"
 
 // libs
 #define GLM_FORCE_RADIANS
@@ -14,8 +14,9 @@
 namespace lve {
 
     struct SimplePushConstantData {
-        glm::mat4 transform{ 1.f };
-        alignas(16) glm::vec3 color{};
+        glm::mat2 transform{ 1.f };
+        glm::vec2 offset;
+        alignas(16) glm::vec3 color;
     };
 
     SimpleRenderSystem::SimpleRenderSystem(LveDevice& device, VkRenderPass renderPass)
@@ -61,20 +62,16 @@ namespace lve {
     }
 
     void SimpleRenderSystem::renderGameObjects(
-        VkCommandBuffer commandBuffer,
-        std::vector<LveGameObject>& gameObjects,
-        const LveCamera& camera) {
+        VkCommandBuffer commandBuffer, std::vector<LveGameObject>& gameObjects) {
         lvePipeline->bind(commandBuffer);
 
-        auto projectionView = camera.getProjection() * camera.getView();
-
         for (auto& obj : gameObjects) {
-            obj.transform.rotation.y = glm::mod(obj.transform.rotation.y + 0.01f, glm::two_pi<float>());
-            obj.transform.rotation.x = glm::mod(obj.transform.rotation.x + 0.005f, glm::two_pi<float>());
+            obj.transform2d.rotation = glm::mod(obj.transform2d.rotation + 0.01f, glm::two_pi<float>());
 
             SimplePushConstantData push{};
+            push.offset = obj.transform2d.translation;
             push.color = obj.color;
-            push.transform = projectionView * obj.transform.mat4();
+            push.transform = obj.transform2d.mat2();
 
             vkCmdPushConstants(
                 commandBuffer,
@@ -88,4 +85,4 @@ namespace lve {
         }
     }
 
-}*/
+}
