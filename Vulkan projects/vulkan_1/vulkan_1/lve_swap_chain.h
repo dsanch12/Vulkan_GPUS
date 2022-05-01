@@ -6,75 +6,82 @@
 #include <vulkan/vulkan.h>
 
 // std lib headers
+#include <memory>
 #include <string>
 #include <vector>
 
 namespace lve {
 
-class LveSwapChain {
- public:
-  static constexpr int MAX_FRAMES_IN_FLIGHT = 2;
+    class LveSwapChain {
+    public:
+        static constexpr int MAX_FRAMES_IN_FLIGHT = 2;
 
-  LveSwapChain(LveDevice &deviceRef, VkExtent2D windowExtent);
-  ~LveSwapChain();
+        LveSwapChain(LveDevice& deviceRef, VkExtent2D windowExtent);
 
-  LveSwapChain(const LveSwapChain &) = delete;
-  void operator=(const LveSwapChain &) = delete;
+        LveSwapChain(
+            LveDevice& deviceRef, VkExtent2D windowExtent, std::shared_ptr<LveSwapChain> previous);
 
-  VkFramebuffer getFrameBuffer(int index) { return swapChainFramebuffers[index]; }
-  VkRenderPass getRenderPass() { return renderPass; }
-  VkImageView getImageView(int index) { return swapChainImageViews[index]; }
-  size_t imageCount() { return swapChainImages.size(); }
-  VkFormat getSwapChainImageFormat() { return swapChainImageFormat; }
-  VkExtent2D getSwapChainExtent() { return swapChainExtent; }
-  uint32_t width() { return swapChainExtent.width; }
-  uint32_t height() { return swapChainExtent.height; }
+        ~LveSwapChain();
 
-  float extentAspectRatio() {
-    return static_cast<float>(swapChainExtent.width) / static_cast<float>(swapChainExtent.height);
-  }
-  VkFormat findDepthFormat();
+        LveSwapChain(const LveSwapChain&) = delete;
+        LveSwapChain& operator=(const LveSwapChain&) = delete;
 
-  VkResult acquireNextImage(uint32_t *imageIndex);
-  VkResult submitCommandBuffers(const VkCommandBuffer *buffers, uint32_t *imageIndex);
+        VkFramebuffer getFrameBuffer(int index) { return swapChainFramebuffers[index]; }
+        VkRenderPass getRenderPass() { return renderPass; }
+        VkImageView getImageView(int index) { return swapChainImageViews[index]; }
+        size_t imageCount() { return swapChainImages.size(); }
+        VkFormat getSwapChainImageFormat() { return swapChainImageFormat; }
+        VkExtent2D getSwapChainExtent() { return swapChainExtent; }
+        uint32_t width() { return swapChainExtent.width; }
+        uint32_t height() { return swapChainExtent.height; }
 
- private:
-  void createSwapChain();
-  void createImageViews();
-  void createDepthResources();
-  void createRenderPass();
-  void createFramebuffers();
-  void createSyncObjects();
+        float extentAspectRatio() {
+            return static_cast<float>(swapChainExtent.width) / static_cast<float>(swapChainExtent.height);
+        }
+        VkFormat findDepthFormat();
 
-  // Helper functions
-  VkSurfaceFormatKHR chooseSwapSurfaceFormat(
-      const std::vector<VkSurfaceFormatKHR> &availableFormats);
-  VkPresentModeKHR chooseSwapPresentMode(
-      const std::vector<VkPresentModeKHR> &availablePresentModes);
-  VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR &capabilities);
+        VkResult acquireNextImage(uint32_t* imageIndex);
+        VkResult submitCommandBuffers(const VkCommandBuffer* buffers, uint32_t* imageIndex);
 
-  VkFormat swapChainImageFormat;
-  VkExtent2D swapChainExtent;
+    private:
+        void init();
+        void createSwapChain();
+        void createImageViews();
+        void createDepthResources();
+        void createRenderPass();
+        void createFramebuffers();
+        void createSyncObjects();
 
-  std::vector<VkFramebuffer> swapChainFramebuffers;
-  VkRenderPass renderPass;
+        // Helper functions
+        VkSurfaceFormatKHR chooseSwapSurfaceFormat(
+            const std::vector<VkSurfaceFormatKHR>& availableFormats);
+        VkPresentModeKHR chooseSwapPresentMode(
+            const std::vector<VkPresentModeKHR>& availablePresentModes);
+        VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
 
-  std::vector<VkImage> depthImages;
-  std::vector<VkDeviceMemory> depthImageMemorys;
-  std::vector<VkImageView> depthImageViews;
-  std::vector<VkImage> swapChainImages;
-  std::vector<VkImageView> swapChainImageViews;
+        VkFormat swapChainImageFormat;
+        VkExtent2D swapChainExtent;
 
-  LveDevice &device;
-  VkExtent2D windowExtent;
+        std::vector<VkFramebuffer> swapChainFramebuffers;
+        VkRenderPass renderPass;
 
-  VkSwapchainKHR swapChain;
+        std::vector<VkImage> depthImages;
+        std::vector<VkDeviceMemory> depthImageMemorys;
+        std::vector<VkImageView> depthImageViews;
+        std::vector<VkImage> swapChainImages;
+        std::vector<VkImageView> swapChainImageViews;
 
-  std::vector<VkSemaphore> imageAvailableSemaphores;
-  std::vector<VkSemaphore> renderFinishedSemaphores;
-  std::vector<VkFence> inFlightFences;
-  std::vector<VkFence> imagesInFlight;
-  size_t currentFrame = 0;
-};
+        LveDevice& device;
+        VkExtent2D windowExtent;
 
-}  // namespace lve
+        VkSwapchainKHR swapChain;
+        std::shared_ptr<LveSwapChain> oldSwapChain;
+
+        std::vector<VkSemaphore> imageAvailableSemaphores;
+        std::vector<VkSemaphore> renderFinishedSemaphores;
+        std::vector<VkFence> inFlightFences;
+        std::vector<VkFence> imagesInFlight;
+        size_t currentFrame = 0;
+    };
+
+}
