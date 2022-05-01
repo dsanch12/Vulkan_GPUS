@@ -1,24 +1,20 @@
+#include "first_app.h"
 
-#include "v1_app.h"
-
+// std
 #include <cstdlib>
 #include <iostream>
 #include <stdexcept>
 
 int main() {
-   
-    lve::App app{};
+    lve::FirstApp app{};
 
     try {
-    
-        app.run();    
+        app.run();
     }
-    catch(const std::exception &e){
-
+    catch (const std::exception& e) {
         std::cerr << e.what() << '\n';
         return EXIT_FAILURE;
     }
-
 
     return EXIT_SUCCESS;
 }
