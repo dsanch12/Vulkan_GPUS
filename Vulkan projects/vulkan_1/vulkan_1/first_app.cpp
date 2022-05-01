@@ -163,7 +163,20 @@ namespace lve {
 
         lvePipeline->bind(commandBuffers[imageIndex]);
         lveModel->bind(commandBuffers[imageIndex]);
-        lveModel->draw(commandBuffers[imageIndex]);
+        for (int j = 0; j < 4; j++) {
+            SimplePushConstantData push{};
+            push.offset = { -0.5f + frame * 0.02f, -0.4f + j * 0.25f };
+            push.color = { 0.0f, 0.0f, 0.2f + 0.2f * j };
+
+            vkCmdPushConstants(
+                commandBuffers[imageIndex],
+                pipelineLayout,
+                VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT,
+                0,
+                sizeof(SimplePushConstantData),
+                &push);
+            lveModel->draw(commandBuffers[imageIndex]);
+        }
 
         vkCmdEndRenderPass(commandBuffers[imageIndex]);
         if (vkEndCommandBuffer(commandBuffers[imageIndex]) != VK_SUCCESS) {
