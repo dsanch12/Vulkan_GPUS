@@ -1,6 +1,6 @@
 ﻿  first_app.cpp
-  lve_model.cpp
-  lve_pipeline.cpp
+  lve_camera.cpp
+  lve_renderer.cpp
   main.cpp
   simple_render_system.cpp
   Generando código...
