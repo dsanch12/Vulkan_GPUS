@@ -24,7 +24,8 @@
     <ProjectGuid>{34462ffb-9cf3-4bc5-bb4d-4f2ceb340ea8}</ProjectGuid>
     <RootNamespace>vulkan1</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName> </ProjectName>
+    <ProjectName>
+    </ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -156,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="keyboard_movement_controller.cpp" />
     <ClCompile Include="lve_camera.cpp" />
     <ClCompile Include="lve_model.cpp" />
     <ClCompile Include="lve_renderer.cpp" />
@@ -168,6 +170,7 @@
     <ClCompile Include="simple_render_system.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="keyboard_movement_controller.h" />
     <ClInclude Include="lve_camera.h" />
     <ClInclude Include="lve_game_object.h" />
     <ClInclude Include="lve_model.h" />
